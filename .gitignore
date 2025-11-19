@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual environments
+venv/
+ENV/
+env/
+
+# Temporary output files
+*.out
+*.dat
+*.config
+*.sc_out
+
+# Compiled binaries (keep in repo but ignore local builds if needed)
+# Uncomment if you want to ignore executables:
+# *.exe
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db

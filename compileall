@@ -1,14 +1,13 @@
 #!/bin/sh
 CC=g++
+CFLAGS="-O3 -march=native -std=c++11"
 
+echo $CC $CFLAGS '-o generate_v.exe src/generate_v.cpp'
+$CC $CFLAGS -o generate_v.exe src/generate_v.cpp
 
+echo $CC $CFLAGS '-o mining_v.exe src/mining_v.cpp'
+$CC $CFLAGS -o mining_v.exe src/mining_v.cpp
 
-echo $CC  'g++ -o generate_v.exe src/generate4.cpp'
-$CC -o generate_v.exe src/generate_v.cpp
-
-echo $CC  'g++ -o mining_v.exe src/mining2.cpp'
-$CC -o mining_v.exe src/mining_v.cpp
-
-echo $CC  'g++ -o scoring_v.exe src/scoring5.cpp'
-$CC -o scoring_v.exe src/scoring_v.cpp
+echo $CC $CFLAGS '-o scoring_v.exe src/scoring_v.cpp'
+$CC $CFLAGS -o scoring_v.exe src/scoring_v.cpp
 

@@ -9,6 +9,7 @@
 #include<iostream>
 #include<math.h>
 #include<vector>
+#include<cstring>
 
 using namespace std;
 
@@ -354,18 +355,18 @@ void result2(){
 
                 int *g;
                 g=(int*)malloc((motiflen+2)*sizeof(int));
-    
-                int ttt=0;                            
+
+                int ttt=0;
                 for (j=0;j<cnt;j++){
                     int x=a3[j];
                     int y=b3[j];
                     for (l=0;l<motiflen;l++)
                         if (seq[can][i+l]==seq[x][y+l]) e[l]=0;
                         else e[l]=1;
-                        
+
                     e[motiflen]=0;
                     for (l=motiflen-1;l>=0;l--) e[l]=e[l]+e[l+1];
-                    
+
                     int r=0;
                     dd=0;
                     for (l=0;l<=motiflen-sublen;l++)
@@ -375,13 +376,15 @@ void result2(){
                             g[dd]=l;dd++;
                         }
                     if (r>=coverage){
-                        cout<<x<<" "<<y<<" ";                        
+                        cout<<x<<" "<<y<<" ";
                       cout<<dd;
                       for (l=0;l<dd;l++) cout<<" "<<g[l];
                       cout<<endl;
                         ttt++;
                     }
-                }                
+                }
+                free(e);
+                free(g);
               cout<<0<<" "<<0<<" "<<-1<<endl<<endl<<endl;
                 if (longest<ttt) longest=ttt;
             }            
@@ -439,11 +442,14 @@ void sub_gen(int x){
 }
 
 int main(int narg,char *arg[]){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
     if (narg<2){
         cout<<"you need to specify configuration file";return 0;
     }
     strcpy(fileconfig,arg[1]);
-    
+
     time_t seconds,end;
     seconds = time (NULL);
           

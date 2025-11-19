@@ -6,6 +6,7 @@
 use strict;
 use Data::Dumper;
 use Carp;
+use List::Util qw(max min sum);
 
 my $filename = $ARGV[0]; 
 my $in_lim   = 0.6;
@@ -715,40 +716,7 @@ sub change_motif_to_iupac {
 }
 
 
-# tools from List::Util
-
-sub max {
-
-	my	@arr	= @_;
-
-    my $max = (sort { $a <=> $b } @arr)[0]; 
-    
-	return $max;
-}
-
-
-sub min {
-
-	my	@arr	= @_;
-    my $min = (sort { $a <=> $b } @arr)[-1]; 
-	return $min;
-}
-
-sub sum {
-
-    my @arr = @_;
-
-    my $tot = 0;
-
-    foreach my $el (@arr) {
-
-        $tot += $el;
-
-    }
-    return $tot;
-}
-
-
+# max, min, sum now imported from List::Util (more efficient)
 
 sub uniq {
 

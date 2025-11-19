@@ -5,6 +5,8 @@
 
 #include<iostream>
 #include<vector>
+#include<cstring>
+#include<cassert>
 
 #define max 1000  //max length of item set
 #define max2 1000000
@@ -196,9 +198,12 @@ void mining(){
 }
 
 int main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
     time_t seconds,end;
     seconds = time (NULL);
-          
+
     mining();
 
     end = time (NULL);

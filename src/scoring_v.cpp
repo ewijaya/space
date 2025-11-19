@@ -13,8 +13,8 @@
 #include<math.h>
 #include<algorithm>
 #include <stdlib.h>
-#include <stdlib.h>
 #include<vector>
+#include<cstring>
 
 using namespace std;
 
@@ -225,7 +225,7 @@ int count1(char *s1,char *s2,int th){
 
 int best,nbest=1;
 
-int hash(char c){
+int base_hash(char c){
     switch(c){
         case 'A': return 0;
         case 'C': return 1;
@@ -240,7 +240,7 @@ int trans5(char *s,int h){
     int i,mu4=1;
     int t=0;
     for (i=h-1;i>=0;i--){
-        t+=mu4*hash(s[i]);
+        t+=mu4*base_hash(s[i]);
         mu4*=5;
     }
     return t;
@@ -251,7 +251,7 @@ int trans(char *s,int h){
     int i,mu4=1;
     int t=0;
     for (i=h-1;i>=0;i--){
-        t+=mu4*hash(s[i]);
+        t+=mu4*base_hash(s[i]);
         mu4*=4;
     }
     return t;
@@ -271,17 +271,17 @@ double cal(char *s){
     for (i=0;i<h-1;i++) mu5*=5;
     
     for (i=h;i<m;i++){
-        win=(win-hash(s[i-h]))/5;win=win+hash(s[i])*mu5;
-        
+        win=(win-base_hash(s[i-h]))/5;win=win+base_hash(s[i])*mu5;
+
         double t1=tab8[win];
         if (h==6) t1=tab6[win];
-        
+
         double t2=0;
-             
+
             char tm=s[i];
             s[i]='N';
-            if (h==8) t2+=tab8[win+(4-hash(s[i]))*mu5];
-            if (h==6) t2+=tab6[win+(4-hash(s[i]))*mu5];
+            if (h==8) t2+=tab8[win+(4-base_hash(s[i]))*mu5];
+            if (h==6) t2+=tab6[win+(4-base_hash(s[i]))*mu5];
             s[i]=tm;
 
         if (t2>0) exp*=t1/t2;
@@ -553,6 +553,9 @@ void ssort(int l,int r){
 }   
     
 int main(int narg,char *arg[]){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
     time_t seconds,end;
     seconds = time (NULL);
 

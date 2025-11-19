@@ -11,11 +11,11 @@ To compile the source code, issue this command:
 The code is compiled with aggressive optimizations (`-O3 -march=native -fopenmp`) for maximum performance. See [PERFORMANCE.md](PERFORMANCE.md) for details.
 
 ## System Requirements
-It runs in UNIX/Linux system, where Perl version 5.8.4 and above should be installed.
+It runs in UNIX/Linux system.
 
 **Requirements:**
 - GCC 5.0+ (with OpenMP support)
-- Perl 5.8.4+
+- Python 3.6+ (instead of Perl)
 - Linux/UNIX system
 - Multi-core CPU recommended for best performance 
 
@@ -55,13 +55,13 @@ Currently we support 16 species. They are:
 |S.cerevisiae   | yeast            | SC   |
 |D.rerio        | zebrafish        | DR   |
 
-## To run the program simple issue the following command:
+## To run the program simply issue the following command:
 
-    prompt > perl run_all.pl [filename] [species code]
+    prompt > python3 run_all.py [filename] [species code]
 
 For example
 
-    prompt> perl run_all.pl test.fasta HS
+    prompt> python3 run_all.py test.fasta HS
 
 Output will be printed to `STDOUT`.
 
@@ -70,7 +70,7 @@ Output will be printed to `STDOUT`.
 To control the number of CPU cores used (default: all available):
 
     export OMP_NUM_THREADS=4
-    perl run_all.pl test.fasta HS
+    python3 run_all.py test.fasta HS
 
 For detailed performance information and tuning options, see [PERFORMANCE.md](PERFORMANCE.md).
 

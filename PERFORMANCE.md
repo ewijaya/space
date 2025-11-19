@@ -46,10 +46,10 @@ By default, OpenMP uses all available CPU cores. You can control this with the `
 ```bash
 # Use 4 threads
 export OMP_NUM_THREADS=4
-perl run_all.pl test.fasta HS
+python3 run_all.py test.fasta HS
 
 # Or inline:
-OMP_NUM_THREADS=8 perl run_all.pl test.fasta HS
+OMP_NUM_THREADS=8 python3 run_all.py test.fasta HS
 ```
 
 ### Recommended Thread Counts
@@ -142,7 +142,7 @@ For NUMA systems, pin threads to cores:
 ```bash
 export OMP_PROC_BIND=true
 export OMP_PLACES=cores
-perl run_all.pl test.fasta HS
+python3 run_all.py test.fasta HS
 ```
 
 ### Scheduling Policy

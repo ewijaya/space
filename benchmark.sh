@@ -52,7 +52,7 @@ run_benchmark() {
         echo -n "  Run $i/$runs... "
 
         # Capture timing output
-        local output=$(perl run_all.pl $TESTFILE $SPECIES 2>&1)
+        local output=$(python3 run_all.py $TESTFILE $SPECIES 2>&1)
 
         # Extract time from each program
         local gen_time=$(echo "$output" | grep -A1 "generate_v.exe" | grep "Total time:" | awk '{print $3}')

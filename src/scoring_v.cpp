@@ -148,7 +148,7 @@ void tryo(int x){
         s[x]=0;
         int y=con(s);
         for (i=0;i<num;i++){
-            int m=strlen(seq[i]);
+            const int m=strlen(seq[i]);  // Cache strlen
             for (j=0;j<m-size+1;j++){
                 int t=check(s,seq[i]+j);
                 if (t!=-1){
@@ -177,10 +177,10 @@ void process(){
         a[i].reserve(200);  // Reserve capacity to avoid reallocations
     }
 
-    tryo(0);  // construct the hashtable 
-    
+    tryo(0);  // construct the hashtable
+
     for (i=0;i<num;i++){
-        int m=strlen(seq[i]);
+        const int m=strlen(seq[i]);  // Cache strlen
         for (j=0;j<m;j++) mark[i][j]=0;
     }
     stnum=0;
@@ -469,6 +469,7 @@ double beta(char *s){
     }
 
     double sumlen=0;
+    // Cache strlen to avoid repeated calls
     for (i=0;i<num;i++) sumlen+=strlen(seq[i]);
     
         double tmp=background_pro(s,best,0);

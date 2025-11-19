@@ -150,9 +150,10 @@ int compare(char *s1,char *s2,int k){
 void find(int x){
     int i,j;
     dd1[x]=0;
-        
+
+    // Cache strlen results to avoid repeated O(n) calls
     for (i=0;i<num;i++){
-        int m=strlen(seq[i]);
+        const int m=strlen(seq[i]);
         for (j=0;j<m;j++)
             if (strncmp(entry,seq[i]+j,sublen)==0){
                 Ipair ii;
@@ -163,13 +164,13 @@ void find(int x){
     }
 
     for (i=0;i<num;i++){
-        int m=strlen(seq[i]);
+        const int m=strlen(seq[i]);
         for (j=0;j<m-sublen+1;j++)
             if (compare(entry,seq[i]+j,sublen)){
                 Ipair ii;
                 ii.seq=i;ii.pos=j;
                 list2[x].push_back(ii);
-                
+
 //                list2[x][dd2[x]][0]=i;list2[x][dd2[x]][1]=j;
                 dd2[x]++;
             }
@@ -205,8 +206,10 @@ void find_hashtable1(){
         list3[i].reserve(300);
     }
 
-    for (i=0;i<num;i++)
-        for (j=0;j<(int)strlen(seq[i])-sublen+1;j++){
+    // Cache strlen results to avoid repeated O(n) calls
+    for (i=0;i<num;i++){
+        const int seqlen=strlen(seq[i]);
+        for (j=0;j<seqlen-sublen+1;j++){
             strncpy(s,seq[i]+j,sublen);
             s[sublen]=0;
             
@@ -248,6 +251,7 @@ void find_hashtable1(){
                 s[l]=ch;
             }
         }
+    }
 }
 
 typedef struct{

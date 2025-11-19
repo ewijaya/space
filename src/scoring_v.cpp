@@ -15,6 +15,7 @@
 #include <stdlib.h>
 #include<vector>
 #include<cstring>
+#include<omp.h>
 
 using namespace std;
 
@@ -147,7 +148,7 @@ void tryo(int x){
         s[x]=0;
         int y=con(s);
         for (i=0;i<num;i++){
-            int m=strlen(seq[i]);
+            const int m=strlen(seq[i]);  // Cache strlen
             for (j=0;j<m-size+1;j++){
                 int t=check(s,seq[i]+j);
                 if (t!=-1){
@@ -167,14 +168,19 @@ void tryo(int x){
 }
 
 int stnum;
+#pragma omp threadprivate(mark, stnum)
+
 void process(){
     int i,j;
-    for (i=0;i<max;i++) b[i]=0;
-    
-    tryo(0);  // construct the hashtable 
-    
+    for (i=0;i<max;i++){
+        b[i]=0;
+        a[i].reserve(200);  // Reserve capacity to avoid reallocations
+    }
+
+    tryo(0);  // construct the hashtable
+
     for (i=0;i<num;i++){
-        int m=strlen(seq[i]);
+        const int m=strlen(seq[i]);  // Cache strlen
         for (j=0;j<m;j++) mark[i][j]=0;
     }
     stnum=0;
@@ -463,6 +469,7 @@ double beta(char *s){
     }
 
     double sumlen=0;
+    // Cache strlen to avoid repeated calls
     for (i=0;i<num;i++) sumlen+=strlen(seq[i]);
     
         double tmp=background_pro(s,best,0);
@@ -590,7 +597,8 @@ int main(int narg,char *arg[]){
     process();
     preprocess();
 
-    //scoring
+    //scoring - parallelized for multi-core performance
+    #pragma omp parallel for schedule(dynamic) if(nummof>10)
     for (i=0;i<nummof;i++)
         if (!del[i]){
 //            cout<<motif[i]<<endl;

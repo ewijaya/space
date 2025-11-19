@@ -15,6 +15,7 @@
 #include <stdlib.h>
 #include<vector>
 #include<cstring>
+#include<omp.h>
 
 using namespace std;
 
@@ -167,10 +168,15 @@ void tryo(int x){
 }
 
 int stnum;
+#pragma omp threadprivate(mark, stnum)
+
 void process(){
     int i,j;
-    for (i=0;i<max;i++) b[i]=0;
-    
+    for (i=0;i<max;i++){
+        b[i]=0;
+        a[i].reserve(200);  // Reserve capacity to avoid reallocations
+    }
+
     tryo(0);  // construct the hashtable 
     
     for (i=0;i<num;i++){
@@ -590,7 +596,8 @@ int main(int narg,char *arg[]){
     process();
     preprocess();
 
-    //scoring
+    //scoring - parallelized for multi-core performance
+    #pragma omp parallel for schedule(dynamic) if(nummof>10)
     for (i=0;i<nummof;i++)
         if (!del[i]){
 //            cout<<motif[i]<<endl;

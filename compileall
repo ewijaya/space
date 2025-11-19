@@ -1,6 +1,6 @@
 #!/bin/sh
 CC=g++
-CFLAGS="-O3 -march=native -std=c++11"
+CFLAGS="-O3 -march=native -std=c++11 -fopenmp"
 
 echo $CC $CFLAGS '-o generate_v.exe src/generate_v.cpp'
 $CC $CFLAGS -o generate_v.exe src/generate_v.cpp

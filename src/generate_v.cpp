@@ -10,6 +10,7 @@
 #include<math.h>
 #include<vector>
 #include<cstring>
+#include<omp.h>
 
 using namespace std;
 
@@ -117,6 +118,9 @@ void pre_align(){
     for (can=0;can<num;can++)
         for (i=0;i<max_seqlen;i++){
             c[can][i]=0;//a[can][i][mx3]=-1;
+            // Reserve capacity to avoid reallocations
+            a[can][i].reserve(50);
+            b[can][i].reserve(50);
         }
     jump=0;
 }
@@ -193,7 +197,14 @@ void find_hashtable1(){
     int i,j,l,g;
 
     char s[sublen+1];
-    
+
+    // Reserve capacity for hash table vectors to avoid reallocations
+    for (i=0;i<num_string;i++){
+        list1[i].reserve(100);
+        list2[i].reserve(500);
+        list3[i].reserve(300);
+    }
+
     for (i=0;i<num;i++)
         for (j=0;j<(int)strlen(seq[i])-sublen+1;j++){
             strncpy(s,seq[i]+j,sublen);
